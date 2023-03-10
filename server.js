@@ -4,7 +4,7 @@ const PORT = 8080
 
 app.use(express.json())
 app.use(express.text())
-let dato = ''
+
 
 app.get('/medidor/:id', (req,res)=>{
     console.log('serial del medidor: ',req.params.id);
