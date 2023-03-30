@@ -6,6 +6,11 @@ class productService{
      constructor(){
         this.products = []
         this.generate()
+        this.create()
+        this.find()
+        // this.findOne()
+        // this.update()
+        // this.delete()
     }
     async generate(){
         const limit = 100
