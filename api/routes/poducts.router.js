@@ -1,7 +1,7 @@
 const express = require('express')
-const productService = require('../api/services/product.service')
-const validatorHandler = require('../api/middlewares/validator.handler')
-const {createProdutSchema, updataProdutSchema, getProdutSchema}=require('./../schemas/product.shema')
+const productService = require('../services/product.service')
+const validatorHandler = require('../middlewares/validator.handler')
+const {createProdutSchema, updataProdutSchema, getProdutSchema}=require('../schemas/product.shema')
 
 const router = express.Router()
 const service = new productService()
@@ -55,3 +55,6 @@ router.delete('/:id' , async (req, res)=>{
     res.json({ product })
 })
 module.exports = router;
+
+
+
