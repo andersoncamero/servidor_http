@@ -161,4 +161,6 @@ dist
 .history
 .ionide
 postgres_data
+mysql_date
+test.js
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node

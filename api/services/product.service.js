@@ -1,16 +1,17 @@
 const { faker } = require("@faker-js/faker")
 const boom = require('@hapi/boom')
+const { models} = require('../libs/sequelize')
+
+
 
 class productService{
 
      constructor(){
         this.products = []
         this.generate()
-        this.create()
-        this.find()
-        // this.findOne()
-        // this.update()
-        // this.delete()
+        // this.pool = pool
+        // this.pool.on('error', (err) => console.log(err)
+       
     }
     async generate(){
         const limit = 100
@@ -34,7 +35,8 @@ class productService{
         return newProduct
     }
     async find(){
-        return this.products
+        const product = await models.Product.create(data)
+        
     }
 
     async findOne(id){
