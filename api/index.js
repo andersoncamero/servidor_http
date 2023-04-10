@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 8080
 
 app.use(express.json())
 app.use(express.text())
-const whitelist = ['http//localhost:8080', 'https//myapp.co']
+const whitelist = ['http//localhost:8080', 'https//myapp.co','Chrome/111.0.0.0']
 const option = {
     origin:(origin, callback) =>{
         if(whitelist.includes(origin)|| !origin){

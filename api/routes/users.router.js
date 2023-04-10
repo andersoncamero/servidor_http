@@ -24,7 +24,7 @@ router.post('/tramas/:id', async (req, res)=>{
     const { id } = req.params
     const  dateToday = new Date().toLocaleString();
     const medidor = service.create(id, body, dateToday);
-    res.status(201).json({ medidor})
+    res.status(201).json(medidor)
 })
 
 
