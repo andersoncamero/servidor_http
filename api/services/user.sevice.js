@@ -19,8 +19,8 @@ class UserService {
     }
     async create(ID ,data, dateToday){
         const newUser = {
-            seri: ID ,
-            ...data,
+            serial: ID,
+            variables: data,
             dateToday:dateToday
         }
         this.datos.push(newUser)
