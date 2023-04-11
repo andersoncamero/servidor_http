@@ -20,7 +20,7 @@ class UserService {
     async create(ID ,data, dateToday){
         for (let i = 0; i < data.length; i++) {
             let arr = data[i].split(':')
-            data[i] = arr
+            data[i] = {"alias": arr[0], "value": arr[1]}
         }
         const newUser = {
             serial: ID,
