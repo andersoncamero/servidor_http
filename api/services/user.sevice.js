@@ -18,8 +18,10 @@ class UserService {
         }
     }
     async create(ID ,data, dateToday){
-        const obj = Object.fromEntries(dividirCadena(data, ":"));
-        console.log(obj);
+        for (let i = 0; i < data.length; i++) {
+            let arr = data[i].split(':')
+            data[i] = arr
+        }
         const newUser = {
             serial: ID,
             variables: data,
@@ -31,13 +33,6 @@ class UserService {
 
     async find(){
         return this.datos
-    }
-
-    dividirCadena(cadenaADividir,separador) {
-        const arrayDeCadenas = cadenaADividir.split(separador);
-        for (let i=0; i < arrayDeCadenas.length; i++) {
-            document.write(arrayDeCadenas[i] + ",");
-         }
     }
 }
 
