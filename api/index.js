@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const routerApi = require('../api/routes/index')
 const{logErrors, errorHandler, boomerrorHandler, ormErrorHandler}=require('./middlewares/error.handler')
+const {checkApikey}= require('./middlewares/auth.handler')
 const app = express()
 const PORT = process.env.PORT || 3000
 
@@ -19,6 +20,8 @@ const option = {
 }
 app.use(cors(option))
 
+require('./../util/auth')
+
 routerApi(app);
 
 app.use(logErrors)
@@ -26,7 +29,7 @@ app.use(ormErrorHandler)
 app.use(boomerrorHandler)
 app.use(errorHandler)
 
-app.post('/consulta/:id', (req,res)=>{
+app.get('/nueva_ruta',checkApikey, (req,res)=>{
     res.status(201).send("inicia peticion de datos del medidor")
     console.log(req);
 })

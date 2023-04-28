@@ -9,14 +9,35 @@ const MeterSchema = {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
+      project:{
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        unique: false
+    },
     serial:{
+        allowNull: false,
+        type: DataTypes.NUMBER,
+        unique: true
+    },
+    model:{
+        allowNull: false,
+        type: DataTypes.STRING,
+        unique: false
+    },
+    TransformadorCorriente:{
+        allowNull: false,
+        type: DataTypes.STRING,
+        unique: false
+    },
+    relationTC:{
+        allowNull: false,
+        type: DataTypes.NUMBER,
+        unique: false
+    },
+    alias:{
         allowNull: false,
         type: DataTypes.STRING,
         unique: true
-    },
-    variables: {
-        allowNull: false,
-        type: DataTypes.ARRAY
     },
     createdAt:{
         allowNull: false,

@@ -1,12 +1,14 @@
 const Joi = require('joi')
 
-const id = Joi.string()
-const variables = Joi.array()
+const id = Joi.number().integer()
+const serial = Joi.number().integer()
+const project = Joi.string().alphanum()
+const variables = Joi.object()
 
 
 const createMeterSchema = Joi.object({
-    id: id.required(),
-    variables: variables.required()
+    serial: serial.required(),
+    project: project.required()
 })
 
 const updateMeterSchema = Joi.object({

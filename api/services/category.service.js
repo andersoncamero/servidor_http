@@ -12,22 +12,30 @@ async create(data){
 }
 
 async find() {
-    return []
+    const Category = await models.Category.findAll()
+    return Category
 }
 
 async findOne(id){
-    return {id}
+    const Category = await models.Category.findByPk(id, {
+        include: ['products']
+    })
+    if (!Category) {
+       throw boom.notFound('Category not found')
+    }
+  return Category 
 }
 
 async update(id, changer){
-    return{
-        id,
-        changer,
-    }
+    const Category = await this.findOne(id)
+    const rta = await Category.update(changer)
+    return rta;
 }
 
 async delete(id){
-    return {id}
+    const Category = await this.findOne(id)
+    await Category.destroy(id);
+    return  id ;
 }
 
 }

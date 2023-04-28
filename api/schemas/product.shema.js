@@ -1,27 +1,45 @@
 const Joi = require('joi')
 
-const id = Joi.string().uuid()
+const id = Joi.number().integer()
 const name = Joi.string().alphanum().min(3).max(15)
 const price = Joi.number().integer().min(10)
 const description = Joi.string().min(10)
-const imagen = Joi.string().uri()
+const imgen = Joi.string().uri()
+const categoryId = Joi.number().integer()
+const limit =Joi.number().integer()
+const offset = Joi.number().integer()
+
+const pricemin = Joi.number().integer()
+const pricemax = Joi.number().integer()
 
 const createProdutSchema = Joi.object({
     name: name.required(),
     price: price.required(),
-    imagen: imagen.required(),
-    descrption: description.required()
+    imgen: imgen.required(),
+    description: description.required(),
+    categoryId : categoryId.required()
 })
 
 const updataProdutSchema = Joi.object({
     name: name,
     price: price,
-    imagen: imagen,
-    descrption: description
+    imgen: imgen,
+    descrption: description,
+    categoryId
 })
 
 const getProdutSchema = Joi.object({
     id: id.required(),
 })
 
-module.exports = {createProdutSchema, updataProdutSchema, getProdutSchema}
+const queryProdutSchema = Joi.object({
+    limit,
+    offset,
+    price,
+    pricemin,
+    pricemax: pricemax.when('pricemin',{
+        is: Joi.number().integer(),
+        then: Joi.required()
+    })
+})
+module.exports = {queryProdutSchema, createProdutSchema, updataProdutSchema, getProdutSchema}

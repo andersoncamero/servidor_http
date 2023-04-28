@@ -1,12 +1,18 @@
 const express = require('express')
 const CategoryService = require('../services/category.service')
 const validatorHandler = require('../middlewares/validator.handler')
+const {checkRoles} = require('../middlewares/auth.handler')
 const {createCategorySchema, updateCategorySchema, getCategorySchema} = require('./../schemas/category.schemas')
+const jwt = require('jsonwebtoken')
+const passport = require('passport')
 
 const router = express.Router()
 const service = new CategoryService()
 
-router.get('/', async(req, res, next)=>{
+router.get('/',
+passport.authenticate('jwt',{session: false}),
+checkRoles('administrador','customer'), 
+async(req, res, next)=>{
     try {
         const category = await service.find()
         res.json(category)
@@ -15,7 +21,9 @@ router.get('/', async(req, res, next)=>{
     }
 })
 
-router.get('/:id', 
+router.get('/:id',
+passport.authenticate('jwt',{session: false}),
+checkRoles('administrador','customer'), 
 validatorHandler(getCategorySchema, 'params'), 
 async(req,res,next)=>{
     try {
@@ -28,6 +36,8 @@ async(req,res,next)=>{
 })
 
 router.post('/', 
+passport.authenticate('jwt',{session: false}),
+checkRoles('administrador'),
 validatorHandler(createCategorySchema, 'body'),
 async (req,res,next)=>{
     try {
@@ -39,7 +49,10 @@ async (req,res,next)=>{
     }
 })
 
-router.patch('/:id',validatorHandler(getCategorySchema, 'param'),
+router.patch('/:id',
+passport.authenticate('jwt',{session: false}),
+checkRoles('administrador'),
+validatorHandler(getCategorySchema, 'param'),
 validatorHandler(updateCategorySchema, 'body'), async(req, res, next)=>{
     try {
         const {id}= req.params
@@ -51,7 +64,10 @@ validatorHandler(updateCategorySchema, 'body'), async(req, res, next)=>{
     }
 })
 
-router.delete('/:id', validatorHandler(getCategorySchema,'param'), 
+router.delete('/:id', 
+passport.authenticate('jwt',{session: false}),
+checkRoles('administrador'),
+validatorHandler(getCategorySchema,'param'), 
 async (req, res, next)=>{
     try {
         const {id} = req.params
