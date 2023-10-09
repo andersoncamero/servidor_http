@@ -1,0 +1,70 @@
+type Query {
+  hello: String!
+  getPerson(name: String, age: Int): String
+  getInt: Int
+  getFloat: Float
+  getString: String
+  getBoolean: Boolean
+  getID: ID
+  getNumbers(numbers: [Int!]!): [Int]
+  #products
+  product(id: ID!): Product
+  products: [Product!]!
+}
+
+type Mutation {
+  addProduct(dto: CreateProductDto!): Product
+  updateProduct(id: ID!, dto: updateProductDto!): Product
+  deleteProduct(id: ID!): ID
+  login(email: EmailAddress!, password: String!): AuthResponse
+  addCategory(dto: CreatCategoryDto): Category
+}
+
+type AuthResponse {
+  token: String!
+  user: User!
+}
+
+type User {
+  id: ID!
+  email: String!
+  role: String!
+  createAt: String!
+}
+
+type Product {
+  id: ID!
+  name: String!
+  price: Int!
+  description: String!
+  imgen: String!
+  createAt: String!
+  categoryId: ID!
+  category: Category!
+}
+
+type Category {
+  id: ID!
+  name: String!
+  imagen: String!
+}
+
+input CreateProductDto {
+  name: String!
+  price: Int!
+  description: String!
+  imgen: String!
+  categoryId: ID!
+}
+
+input updateProductDto {
+  name: String
+  price: Int
+  description: String
+  imgen: String
+  categoryId: ID
+}
+input CreatCategoryDto {
+  name: String!
+  imagen: URL!
+}

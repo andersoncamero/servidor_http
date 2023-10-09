@@ -38,8 +38,8 @@ const queryProdutSchema = Joi.object({
     price,
     pricemin,
     pricemax: pricemax.when('pricemin',{
-        is: Joi.number().integer(),
-        then: Joi.required()
-    })
+      is: Joi.number().integer(),
+      then: Joi.optional()
+  })
 })
 module.exports = {queryProdutSchema, createProdutSchema, updataProdutSchema, getProdutSchema}

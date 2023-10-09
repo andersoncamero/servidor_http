@@ -1,14 +1,11 @@
-const {Strategy} = require('passport-local')
+const { GraphQLLocalStrategy } = require('graphql-passport')
 const AuhService = require('./../../../api/services/auth.service')
-
 
 const service = new AuhService()
 
-const localStrategy = new Strategy({
-    usernameField: 'email',
-    passwordField: 'password'
-},async (email, password, done)=>{
-try {
+const GQLlocalStrategy = new GraphQLLocalStrategy(
+  async(email, password, done)=>{
+  try {
     const user = await service.getUser(email, password)
     done(null, user)
     } catch (error) {
@@ -16,4 +13,4 @@ try {
     }
 })
 
-module.exports = localStrategy
+module.exports = GQLlocalStrategy

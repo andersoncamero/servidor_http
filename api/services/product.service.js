@@ -9,9 +9,13 @@ const{ Op }= require('sequelize')
 class productService{
 
      constructor(){
-       
+
     }
     async create(data){
+      const category = await models.Category.findByPk(data.categoryId)
+      if (!category) {
+        throw boom.notFound('category not found')
+      }
         const newProduct = await models.Product.create(data)
         return newProduct
     }
@@ -41,12 +45,12 @@ class productService{
     }
 
     async findOne(id){
-        const product = this.products.findByPk(id)
+      console.log(id);
+        const product = await models.Product.findByPk(id,{
+          include: ['category']
+        })
         if(!product){
             throw  boom.notFound('produt not found')
-        }
-        if(product.isBlock){
-            throw  boom.conflict('produt block')
         }
         return product
     }

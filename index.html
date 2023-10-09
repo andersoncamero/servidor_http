@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Iniciar sesión</title>
+  <script>
+    async function handleFormSubmit(event) {
+      event.preventDefault(); // Evita que se realice la acción por defecto del formulario
+
+      var form = event.target;
+      var email = form.email.value;
+      var password = form.password.value;
+
+      // Hash de la contraseña
+      var hashedPassword = await generateSHA256Hash(password);
+
+      // Envío de las credenciales al servidor
+      var url = 'http://10.0.0.135:3001/api/v1/Auth/login';
+      var method = 'POST';
+      var data = {
+        email: email,
+        password: hashedPassword
+      };
+
+      fetch(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        console.log(data); // Muestra la respuesta en la consola
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+    }
+
+    async function generateSHA256Hash(text) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(text);
+
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+
+      return hashHex;
+    }
+  </script>
+</head>
+<body>
+  <h2>Iniciar sesión</h2>
+  <form onsubmit="handleFormSubmit(event)">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br>
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" name="password" required><br>
+    <input type="submit" value="Iniciar sesión">
+  </form>
+</body>
+</html>

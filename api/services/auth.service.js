@@ -8,6 +8,7 @@ const { config } = require('./../config/config')
 const service = new UserService()
 
 class AuthService {
+
   async getUser(email, password){
     const user = await service.findEmail(email)
     if(!user){
@@ -18,9 +19,10 @@ class AuthService {
         throw boom.unauthorized();
     }
     delete user.dataValues.password
+    delete user.dataValues.email
     return(user)
-    } 
-  
+    }
+
 
 
   signToken(user){

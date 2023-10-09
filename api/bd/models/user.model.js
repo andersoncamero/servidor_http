@@ -26,14 +26,14 @@ const UserSchema = {
     role:{
         allowNull: false,
         type: DataTypes.STRING,
-        defaultValue: 'customer' 
+        defaultValue: 'customer'
     },
     createdAt:{
         allowNull: false,
         type: DataTypes.DATE,
         field: 'create_at',
         defaultValue: Sequelize.NOW
-    },  
+    },
 }
 
 class User extends Model {
@@ -56,3 +56,4 @@ class User extends Model {
 }
 
 module.exports = { USER_TABLE, UserSchema, User }
+
