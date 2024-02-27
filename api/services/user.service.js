@@ -22,6 +22,7 @@ class UserService {
         )
         return rta
     }
+
     async findEmail(email){
       const rta  = await models.User.findOne(
         {

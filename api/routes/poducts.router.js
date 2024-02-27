@@ -9,7 +9,8 @@ const service = new productService()
 router.get('/filter', (req,res)=>{
     res.send('soy un filter')
 })
-router.get('/', 
+
+router.get('/',
 validatorHandler(queryProdutSchema, 'query'),
 async (req, res, next)=>{
     try {
@@ -18,10 +19,10 @@ async (req, res, next)=>{
     } catch (error) {
         next(error)
     }
-   
+
  })
 
- router.get('/:id', 
+ router.get('/:id',
     validatorHandler(getProdutSchema, 'params'),
     async (req,res, next)=>{
         try {
@@ -31,7 +32,7 @@ async (req, res, next)=>{
         } catch (error) {
             next(error)
         }
-   
+
 })
 
 router.post('/' ,
@@ -42,7 +43,7 @@ router.post('/' ,
     res.status(201).json({ newProduct})
     })
 
-router.patch('/:id' , 
+router.patch('/:id' ,
     validatorHandler(getProdutSchema, 'params'),
     validatorHandler(updataProdutSchema, 'body'),
     async (req, res, next)=>{
@@ -54,7 +55,7 @@ router.patch('/:id' ,
     } catch (error) {
         next(error)
     }
-    
+
 })
 router.delete('/:id' , async (req, res)=>{
     const { id } = req.params

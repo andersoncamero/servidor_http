@@ -23,8 +23,6 @@ class AuthService {
     return(user)
     }
 
-
-
   signToken(user){
     const payload = {
         sub: user.id,
@@ -36,6 +34,7 @@ class AuthService {
         token
     })
   }
+
   async changePassword(token, newPassword){
     try {
       const payload = jwt.verify(token, config.jwtSecret)
@@ -72,8 +71,6 @@ class AuthService {
     const rta = await this.sendMail(mail)
     return rta
   }
-
-
  async sendMail(infoemail){
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
